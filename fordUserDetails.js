@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 var MongoClient = require('mongodb').MongoClient,assert = require('assert');
 //var url = "mongodb://52.71.161.217:27017/ford";
-var url = "mongodb://best:12345@ds133094.mlab.com:33094/thebest";
+var url = "mongodb://heroku_6h7jg171:4fm7lbhd53aebelmkarpl7sm86@ds129144.mlab.com:29144/heroku_6h7jg171";
 app.post('/ford/bot/getUserDetails', function (request, response) {
     console.log("/ford/bot/getUserDetails", request.body);
     MongoClient.connect(url, function (err, db) {
