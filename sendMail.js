@@ -20,7 +20,7 @@ function sendEmail(_Ticket,_Body, access_token){
   'Content-Type: multipart/mixed; boundary="foo_bar_baz"\r\n',
   'MIME-Version: 1.0\r\n',
   'From: <kstream001@gmail.com>\r\n',
-  'To: <pramod.deshpande@kore.com>,<shantanu.ghorai@kore.com>\r\n',
+  'To: <pramod.deshpande@kore.com><shantanu.ghorai@kore.com>\r\n',
   'Ticket:<'+_Ticket+'>\r\n',
   'Subject:Ticket '+_Ticket+':escalation\r\n\r\n',
   'Body:<'+_Body+'>\r\n',
