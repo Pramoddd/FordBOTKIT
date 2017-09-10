@@ -1,0 +1,24 @@
+{
+    "server": {
+        "port": 8003
+    },
+    "app": {
+        "apiPrefix" : "",
+        "url": "https://a4f1b00e.ngrok.io"
+    },
+    "credentials": {
+        "apikey": "UedWDL+q95ig47VZfc2Np2Vu+5FprPGFH7fNIBU5nD8=",
+        "appId": "cs-60defb40-d789-50b5-944b-1506fafc744f"
+    },
+    "redis": {
+        "options": {
+            "host": "localhost",
+            "port": 6379
+        },
+        "available": false
+    },
+    "examples" : {
+        "mockServicesHost"  : "http://localhost:8004"
+    },
+    "liveagentlicense": "9064110"
+}
