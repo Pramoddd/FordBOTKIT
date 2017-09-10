@@ -5,8 +5,11 @@ var config      = require("./config");
 
 var app    = new Application(null, config);
 var server = new Server(config, app);
-app.listen(process.env.PORT || 8000)
+var port = process.env.PORT || 8000;
 
+app.listen(port, function () {
+    console.log("Listening on " + port);
+});
 server.start();
 sdk.registerBot(require('./SimpleConversationalBot.js'));
 sdk.registerBot(require('./LiveChat.js'));
