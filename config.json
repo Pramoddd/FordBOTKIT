@@ -1,6 +1,6 @@
 {
     "server": {
-        "port": 8003
+        "port": 8000
     },
     "app": {
         "apiPrefix" : "",
