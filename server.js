@@ -5,6 +5,7 @@ var config      = require("./config");
 
 var app    = new Application(null, config);
 var server = new Server(config, app);
+app.listen(process.env.PORT || 8000)
 
 server.start();
 sdk.registerBot(require('./SimpleConversationalBot.js'));
