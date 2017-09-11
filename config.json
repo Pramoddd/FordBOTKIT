@@ -4,7 +4,7 @@
     },
     "app": {
         "apiPrefix" : "",
-        "url": "https://a4f1b00e.ngrok.io"
+        "url": "http://ford-botkit.herokuapp.com"
     },
     "credentials": {
         "apikey": "UedWDL+q95ig47VZfc2Np2Vu+5FprPGFH7fNIBU5nD8=",
