@@ -5,16 +5,6 @@ var moment = require('moment');
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-var Application = require("./lib/app");
-var Server      = require("./lib/server");
-var sdk         = require("./lib/sdk");
-var config      = require("./config");
-var app    = new Application(null, config);
-var server = new Server(config, app);
-server.start();
-sdk.registerBot(require('./SimpleConversationalBot.js'));
-sdk.registerBot(require('./GuessTheNumber.js'));
-sdk.registerBot(require('./finalNumber.js'));
 var MongoClient = require('mongodb').MongoClient,assert = require('assert');
 //var url = "mongodb://52.71.161.217:27017/ford";
 var url = "mongodb://heroku_6h7jg171:4fm7lbhd53aebelmkarpl7sm86@ds129144.mlab.com:29144/heroku_6h7jg171";
@@ -27,9 +17,9 @@ app.post('/ford/bot/getUserDetails', function (request, response) {
             throw err;
         var filter = {};
         if (request.body.cdsId == null || request.body.cdsId == undefined || request.body.cdsId == '') {
-		var user = {"data": {"success": "No results found."}};
-		response.send(user);		
-		db.close();
+		var user = {"data": {"totalRows": "0", "pageRows": "0","success": "No results found."}};
+            response.send(user);
+			db.close();	
         }
 		else {
 			filter.cdsId = request.body.cdsId;		
@@ -55,8 +45,8 @@ app.post('/ford/bot/getTicketStatus', function (request, response) {
             throw err;
         var filter = {};
         if (request.body.ticketId == null || request.body.ticketId == undefined || request.body.ticketId == '') {
-            var user = {"data": {"success": "No results found."}};
-			response.send(user);		
+            var user = {"data": {"totalRows": "0", "pageRows": "0","success": "No results found."}};
+            response.send(user);
 			db.close();			
         }		
 		else {
@@ -82,11 +72,10 @@ app.post('/ford/bot/getMyTicketDetails', function (request, response) {
             throw err;
         var filter = {};
         if (request.body.requestedForCdsId == null || request.body.requestedForCdsId == undefined || request.body.requestedForCdsId == '') {
-            //console.log(filter);
-			var ticket = {"data": {"success": "No results found."}};
+            var ticket = {"data": {"totalRows": "0", "pageRows": "0","success": "No results found."}};
             response.send(ticket);
 			db.close();			
-        }
+		}
 		else{
 			filter.requestedForCdsId = request.body.requestedForCdsId;
 			db.collection("ticketDetails").find(filter).toArray(function (err, result) {
@@ -115,15 +104,6 @@ app.get('/ford/bot/getLatestTicketId', function (request, response) {
             db.close();
         });
     });
-});
-app.post('/webhook',function(err,res){
-	if(err){
-		console.log(err.stack);
-	}
-	var filter = {"userName": "mladd", "region": "North America"};
-	console.log("success");
-	res.send(filter);
-	
 });
 app.post('/ford/bot/submitRequest', function (request, response) {
     console.log("/ford/bot/submitRequest", request.body);
