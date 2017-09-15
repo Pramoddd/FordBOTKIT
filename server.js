@@ -2,6 +2,7 @@ var express = require("express");
 var mongodb = require("mongodb");
 var bodyParser = require('body-parser');
 var moment = require('moment');
+
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -17,7 +18,7 @@ app.post('/ford/bot/getUserDetails', function (request, response) {
             throw err;
         var filter = {};
         if (request.body.cdsId == null || request.body.cdsId == undefined || request.body.cdsId == '') {
-		var user = {"data": {"totalRows": "0", "pageRows": "0","success": "No results found."}};
+		var user = {"data": {"totalRows": 0, "pageRows": 0,"success": "No results found."}};
             response.send(user);
 			db.close();	
         }
@@ -45,7 +46,7 @@ app.post('/ford/bot/getTicketStatus', function (request, response) {
             throw err;
         var filter = {};
         if (request.body.ticketId == null || request.body.ticketId == undefined || request.body.ticketId == '') {
-            var user = {"data": {"totalRows": "0", "pageRows": "0","success": "No results found."}};
+            var user = {"data": {"totalRows": 0, "pageRows": 0,"success": "No results found."}};
             response.send(user);
 			db.close();			
         }		
@@ -72,7 +73,7 @@ app.post('/ford/bot/getMyTicketDetails', function (request, response) {
             throw err;
         var filter = {};
         if (request.body.requestedForCdsId == null || request.body.requestedForCdsId == undefined || request.body.requestedForCdsId == '') {
-            var ticket = {"data": {"totalRows": "0", "pageRows": "0","success": "No results found."}};
+            var ticket = {"data": {"totalRows": 0, "pageRows": 0,"success": "No results found."}};
             response.send(ticket);
 			db.close();			
 		}
