@@ -106,6 +106,77 @@ app.get('/ford/bot/getLatestTicketId', function (request, response) {
         });
     });
 });
+/*app.post('/ford/bot/printlist',function(resquest,response){
+	console.log("/ford/bot/printlist");
+	MongoClient.connect(url,function(err,db){
+		assert.equal(null,err);
+		console.log("Bringing in printer details");
+		if(err)
+			throw err;
+		var filter ={};
+		filter.printerId = request.body.printerId;
+		db.collection('userDetails').
+
+	})*/
+	
+app.post('/ford/bot/getPullPrinter', function (request, response) {
+    console.log("/ford/bot/getPullPrinter", request.body);
+    MongoClient.connect(url, function (err, db) {
+		assert.equal(null, err);
+		console.log("Connected correctly to server");
+        if (err)
+            throw err;
+        var filter = {};
+        if (request.body.cdsId == null || request.body.cdsId == undefined || request.body.cdsId == '') {
+            var ticket = {"data": {"totalRows": 0, "pageRows": 0,"success": "No results found."}};
+            response.send(ticket);
+			db.close();			
+		}
+		else{
+			filter.cdsId = request.body.cdsId;
+			db.collection("pullPrinterList").find(filter).toArray(function (err, result) {
+            if (err)
+                throw err;
+			var ticket = {"data": {"tables": result, "totalRows": result.length, "pageRows": result.length, "success": true}};
+            response.send(ticket);
+			db.close();
+        });
+		}
+		console.log(filter);
+    });
+});
+
+app.post('/ford/bot/girbLookup', function (request, response) {
+    console.log("/ford/bot/girdbLookup", request.body);
+    MongoClient.connect(url, function (err, db) {
+		assert.equal(null, err);
+		console.log("Connected correctly to server");
+        if (err)
+            throw err;
+        var filter = {};
+        if (request.body.desc == null || request.body.desc == undefined || request.body.desc == '') {
+            var ticket = {"data": {"totalRows": 0, "pageRows": 0,"success": "No results found."}};
+            response.send(ticket);
+			db.close();			
+		}
+		else{
+			filter.desc = request.body.desc;
+			var desc = filter.desc.toString();
+			db.collection("ticketDetails").find({"shortDescription": {$regex: ".*desc*."}}).toArray(function (err, result) {
+            if (err)
+                throw err;
+			console.log(filter);
+			var ticket = {"data": {"tables": result, "totalRows": result.length, "pageRows": result.length, "success": true}};
+            response.send(ticket);
+			db.close();
+        });
+		}
+		console.log(filter);
+    });
+});
+
+	
+	
 app.post('/ford/bot/submitRequest', function (request, response) {
     console.log("/ford/bot/submitRequest", request.body);
     MongoClient.connect(url, function (err, db) {
