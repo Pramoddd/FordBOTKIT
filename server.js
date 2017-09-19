@@ -162,7 +162,7 @@ app.post('/ford/bot/girbLookup', function (request, response) {
 		else{
 			filter.desc = request.body.desc;
 			var description = filter.desc.toString();
-			db.collection("ticketDetails").find({"shortDescription": {$regex: description}}).toArray(function (err, result) {
+			db.collection("ticketDetails").find({"shortDescription": {$regex: description, $options: "i"}}).toArray(function (err, result) {
             if (err)
                 throw err;
 			console.log(filter);
