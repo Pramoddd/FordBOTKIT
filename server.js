@@ -2,7 +2,6 @@ var express = require("express");
 var mongodb = require("mongodb");
 var bodyParser = require('body-parser');
 var moment = require('moment');
-var textract = require('textract');
 
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
@@ -10,6 +9,7 @@ app.use(bodyParser.json());
 var MongoClient = require('mongodb').MongoClient,assert = require('assert');
 //var url = "mongodb://localhost:27017/ford";
 var url = "mongodb://heroku_6h7jg171:4fm7lbhd53aebelmkarpl7sm86@ds129144.mlab.com:29144/heroku_6h7jg171";
+
 app.post('/ford/bot/getUserDetails', function (request, response) {
     console.log("/ford/bot/getUserDetails", request.body);
     MongoClient.connect(url, function (err, db) {
@@ -192,12 +192,8 @@ app.post('/ford/bot/submitRequest', function (request, response) {
 
 
 app.post('/ford/bot/imageToText',function(req,res){
-    console.log(new Date() + 'In imageToText api service');
-        textract.fromUrl(req.body.url, function( error, text ) {
-        if(error){
-            console.log(error);
-            }else{            
-            text = text.replace(/\"/g,'');
+    console.log(new Date() + 'In imageToText api service');    
+            var text = req.body.text;
             console.log(text);
             var num = text.match(/\d+/g);
             console.log(parseInt(num[0]));
@@ -217,9 +213,6 @@ app.post('/ford/bot/imageToText',function(req,res){
               });  
                 db.close();
            });
-        }
-    });
-
 })
 
 var port = process.env.PORT || 5000;
